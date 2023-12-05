@@ -39,7 +39,8 @@
     "src/components/WishlistPage.jsx",
     "src/components/ProductDetailsPage.jsx",
     "src/components/CartPage.jsx",
-    "build/types/**/*.ts"
+    "build/types/**/*.ts",
+    "out/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

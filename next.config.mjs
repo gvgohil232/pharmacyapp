@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   // Add basePath
   basePath: '/pharmacyapp',
+  distDir: 'out',
 }
 
 export default nextConfig
