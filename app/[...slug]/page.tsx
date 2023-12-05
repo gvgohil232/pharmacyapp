@@ -5,7 +5,7 @@ export const metadata = {
   title: "Contact",
 };
 export async function generateStaticParams() {
-  const posts = 'about'
+  const posts = ['about']
 
   return posts;
 }
