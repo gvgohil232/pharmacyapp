@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Add basePath
-  basePath: '/pharmacyapp',
-  distDir: 'out',
+  
+  // output: 'export',
+  distDir: 'dist',
+  images: {
+    unoptimized: true,
+  }
 }
 
 export default nextConfig
