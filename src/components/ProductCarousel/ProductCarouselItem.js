@@ -1,38 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import Bookmark from "@mui/icons-material/Bookmark";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
 import styles from "./ProductCarousel.module.css";
-import Bookmark from "@mui/icons-material/Bookmark";
-// import { bindActionCreators } from "redux";
-// import { actionCreators } from "../../redux";
-import { useRouter } from 'next/navigation'
-
-import {
-  wishlistSlice,
-  useSelector,
-  useDispatch,
-  selectCount,
-  incrementAsync,
-  incrementIfOddAsync,
-} from '@/lib/redux'
-
+import { useRouter } from "next/navigation";
 
 const ProductCarouselItem = ({ item }) => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const wishlist = useSelector((state) => state.wishlist.value);
-  const cartList = useSelector((state) => state.cart);
 
-  // const { addtowishlist, removefromwishlist, addtocart } = bindActionCreators(
-  //   actionCreators,
-  //   dispatch
-  // );
+  const wishlist = [];
 
   const [addWish, SetAddWish] = useState(wishlist.includes(item?.id));
 

@@ -1,25 +1,18 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import NotFound from "@/components/NotFound/NotFound";
+import PsBox from "@/components/PsBox/PsBox";
+import PsPageHeading from "@/components/PsPageHeading/PsPageHeading";
+import UserProductItem from "@/components/UserProductItem/UserProductItem";
+import { Products } from "@/utills/globalData";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import PageTitle from "@/src/components/PageTitle/PageTitle";
-import PsPageHeading from "@/src/components/PsPageHeading/PsPageHeading";
-import PsBox from "@/src/components/PsBox/PsBox";
-import { Products } from "@/src/utills/globalData";
 import Grid from "@mui/material/Grid";
-import UserProductItem from "@/src/components/UserProductItem/UserProductItem";
-import NotFound from "@/src/components/NotFound/NotFound";
-
-import {
-  wishlistSlice,
-  useSelector,
-} from '@/lib/redux'
-
+import Stack from "@mui/material/Stack";
+import React, { useEffect, useState } from "react";
 
 const WishlistPage = () => {
   const [wishlistData, setWishlistData] = useState([]);
 
-  const wishlist = useSelector((state) => state.wishlist.value);
+  const wishlist = React.useMemo(() => [], []);
 
   useEffect(() => {
     let data = Products?.filter((item) => wishlist?.includes(item?.id));

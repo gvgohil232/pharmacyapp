@@ -44,6 +44,7 @@ const ProductListing = ({ category }) => {
             Filter
             {ProductFilterOptions?.map((item, index) => (
               <Accordion
+                key={"filterby" + index}
                 sx={{ boxShadow: "none", border: "none" }}
                 className="ProductListingFilterItem"
               >

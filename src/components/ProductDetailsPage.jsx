@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -14,34 +13,17 @@ import LocalOffer from "@mui/icons-material/LocalOffer";
 import Bookmark from "@mui/icons-material/Bookmark";
 import Star from "@mui/icons-material/Star";
 
-// import { bindActionCreators } from "@reduxjs/toolkit";
 import { Products } from "../utills/globalData";
 import { assetsPrefix } from "../utills/constants";
 import { OfferDetails } from "../utills/globalData";
-import {
-  cartSlice,
-  wishlistSlice,
-  useSelector,
-  useDispatch,
-  addtocart,
-  decrementfromcart,
-  addtowishlist,
-  removefromwishlist,
-} from "@/lib/redux";
 
 const ProductDetailsPage = ({ id }) => {
-  const wishlist = useSelector((state) => state.wishlist.value);
-  const cartlist = useSelector((state) => state.cart.value);
-
-  const router = useRouter();
+  const wishlist = [];
+  const cartlist = [];
 
   const [addWish, SetAddWish] = useState(wishlist.includes(id));
   const [productData, setProductData] = useState();
   const cartData = cartlist?.find((cart) => cart?.id === id);
-
-  const dispatch = useDispatch();
-  //   const { addtocart, decrementfromcart, addtowishlist, removefromwishlist } =
-  //     bindActionCreators(actionCreators, dispatch);
 
   useEffect(() => {
     const data = Products?.find((product) => product?.id === id);
@@ -52,10 +34,8 @@ const ProductDetailsPage = ({ id }) => {
   const addToWishlistFunction = (prodId) => {
     if (!addWish) {
       SetAddWish(true);
-      dispatch(wishlistSlice.actions.addtowishlist(prodId));
     } else if (addWish) {
       SetAddWish(false);
-      dispatch(wishlistSlice.actions.removefromwishlist(prodId));
     }
   };
 
@@ -66,6 +46,7 @@ const ProductDetailsPage = ({ id }) => {
           <Grid item xs={2}>
             {[...Array(3)].map((x, i) => (
               <CardMedia
+                key={"arr" + i}
                 component="img"
                 image={`${assetsPrefix}${productData?.img}`}
                 alt="image"
@@ -105,7 +86,7 @@ const ProductDetailsPage = ({ id }) => {
             </Typography>
             <Typography variant="body2" sx={{ margin: "10px 0" }}>
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
+              industry. Lorem Ipsum has been the industrys standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
               type and scrambled it to make a type specimen book.
             </Typography>
@@ -149,8 +130,8 @@ const ProductDetailsPage = ({ id }) => {
               </Typography>
             </Box>
             <List>
-              {OfferDetails?.map((item) => (
-                <ListItem disablePadding>
+              {OfferDetails?.map((item, index) => (
+                <ListItem key={"offerlist" + index} disablePadding>
                   <ListItemIcon>
                     <LocalOffer color="success" sx={{ fontSize: "17px" }} />
                   </ListItemIcon>
@@ -240,7 +221,6 @@ const ProductDetailsPage = ({ id }) => {
             right: "3px",
             top: "3px",
             color: addWish ? "green" : "lightgrey",
-            // backgroundColor: "rgba(25, 135, 84, 0.2)",
           }}
           onClick={() => {
             addToWishlistFunction(productData?.id);

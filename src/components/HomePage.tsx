@@ -1,27 +1,29 @@
 "use client";
 /* Components */
-import styles from "../src/styles/Home.module.css";
 import Container from "@mui/material/Container";
-import HomeCarousel from "@/src/components/HomeCarousel/HomeCarousel";
-import CategoryCarousel from "@/src/components/CategoryCarousel/CategoryCarousel";
-import ColumnBanner from "@/src/components/ColumnBanner/ColumnBanner";
-import ProductCarousel from "@/src/components/ProductCarousel/ProductCarousel";
-import ContactSection from "@/src/components/ContactSection/ContactSection";
-import PageTitle from "@/src/components/PageTitle/PageTitle";
-import Layout from "./Layout/Layout";
+import HomeCarousel from "@/components/HomeCarousel/HomeCarousel";
+import CategoryCarousel from "@/components/CategoryCarousel/CategoryCarousel";
+import ColumnBanner from "@/components/ColumnBanner/ColumnBanner";
+import ProductCarousel from "@/components/ProductCarousel/ProductCarousel";
+import ContactSection from "@/components/ContactSection/ContactSection";
+import { Card, CardContent, Typography } from "@mui/material";
 
-export default function HomePage() {
+export default function HomePage({ username }: { username: string | '' }) {
   return (
-    <Layout>
-      <Container>
-        {/* <PageTitle title="Pharmnacy Shop" /> */}
-        <HomeCarousel />
-        <CategoryCarousel />
-        <ColumnBanner />
-        <ProductCarousel />
-        <ContactSection />
-      </Container>
-    </Layout>
+    <Container>
+      {/* <PageTitle title="Pharmnacy Shop" /> */}
+      <Card variant="outlined" sx={{'my':3}}>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Wellcome Back, {username || "User"}
+          </Typography>
+        </CardContent>
+      </Card>
+      <HomeCarousel />
+      <CategoryCarousel />
+      <ColumnBanner />
+      <ProductCarousel />
+      <ContactSection />
+    </Container>
   );
 }
-

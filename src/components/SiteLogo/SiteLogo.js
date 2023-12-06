@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { assetsPrefix } from "../../utills/constants";
 
-const SiteLogo = ({ name, light = false, inlineBlocked }) => {
+const SiteLogo = ({ name, light = false, inlineBlocked = false }) => {
   return (
     <Box
       sx={{

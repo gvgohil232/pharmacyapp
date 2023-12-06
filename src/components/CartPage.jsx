@@ -1,40 +1,31 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import {
-    wishlistSlice,
-    useSelector,
-    useDispatch,
-    selectCount,
-    incrementAsync,
-    incrementIfOddAsync,
-  } from '@/lib/redux'
+import { useEffect, useState } from "react";
   
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Grid from "@mui/material/Grid";
+import NotFound from "@/components/NotFound/NotFound";
+import PsBox from "@/components/PsBox/PsBox";
+import PsButton from "@/components/PsButton/PsButton";
+import PsPageHeading from "@/components/PsPageHeading/PsPageHeading";
+import UserProductItem from "@/components/UserProductItem/UserProductItem";
+import { Products } from "@/utills/globalData";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import PageTitle from "@/src/components/PageTitle/PageTitle";
-import { Products } from "@/src/utills/globalData";
-import PsPageHeading from "@/src/components/PsPageHeading/PsPageHeading";
-import PsBox from "@/src/components/PsBox/PsBox";
-import PsButton from "@/src/components/PsButton/PsButton";
-import UserProductItem from "@/src/components/UserProductItem/UserProductItem";
-import NotFound from "@/src/components/NotFound/NotFound";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
-const cart = () => {
-  const cartlist = useSelector((state) => state.cart.value);
-
-  let discountpPercentage = 5;
-  let deliveryCharges = 100;
+const Cart = () => {
   const [discountedAmt, setDiscountedAmt] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+  const cartlist = [];
+
+  let discountpPercentage = 5;
+  let deliveryCharges = 100;
 
   useEffect(() => {
     let mainTotal = 0;
@@ -135,4 +126,4 @@ const cart = () => {
   );
 };
 
-export default cart;
+export default Cart;

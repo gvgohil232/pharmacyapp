@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useSelector } from "react-redux";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -60,8 +59,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header({ setIsLeftMenuOpen }) {
-  const cart = useSelector((state) => state.cart);
-  const wishlistStore = useSelector((state) => state.wishlist);
+  const cart = [];
+  const wishlistStore = [];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -224,7 +223,7 @@ export default function Header({ setIsLeftMenuOpen }) {
             >
               <MenuIcon />
             </IconButton>
-            <SiteLogo name="PharmacyShop" light inlineBlocked />
+            <SiteLogo name="Pharmacy Shop" light inlineBlocked />
           </Typography>
           <Search sx={{ display: { xs: "none", sm: "block" } }}>
             <SearchIconWrapper>

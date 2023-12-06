@@ -9,17 +9,6 @@ import BookmarkRemove from "@mui/icons-material/BookmarkRemoveTwoTone";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import RemoveCircle from "@mui/icons-material/RemoveCircleTwoTone";
-import {
-  wishlistSlice,
-  useSelector,
-  useDispatch,
-  selectCount,
-  incrementAsync,
-  incrementIfOddAsync,
-} from '@/lib/redux'
-
-// import { bindActionCreators } from "redux";
-// import { actionCreators } from "../../redux";
 import { assetsPrefix } from "../../utills/constants";
 import { Products } from "../../utills/globalData";
 import { useRouter } from "next/router";
@@ -31,12 +20,8 @@ const UserProductItem = ({ item, productIn }) => {
   const [itemData, setItemData] = useState([]);
   const [itemQty, setItemQty] = useState(0);
 
-  const cartStore = useSelector((state) => state.cart);
-  const wishlistStore = useSelector((state) => state.wishlist);
-
-  const dispatch = useDispatch();
-  // const { removefromwishlist, addtocart, removefromcart, decrementfromcart } =
-  //   bindActionCreators(actionCreators, dispatch);
+  const cartStore = [];
+  const wishlistStore = [];
 
   useEffect(() => {
     const data = Products?.filter((product) => product?.id === item?.id);
