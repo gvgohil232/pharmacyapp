@@ -7,6 +7,8 @@ import { List, ListItem } from "@mui/material";
 export const metadata = {
   title: "Profile",
 };
+export const revalidate = 60;
+
 const profile = async () => {
   const user = await prisma.user.findFirst({
     where: {
