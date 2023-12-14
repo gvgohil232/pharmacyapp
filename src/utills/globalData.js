@@ -30,12 +30,18 @@ export const LeftBarMenus = [
   },
   {
     id: 4,
+    name: "Offers",
+    url: "/offers",
+    icon: <Medication />,
+  },
+  {
+    id: 5,
     name: "Contact",
     url: "/contact",
     icon: <ContactPage />,
   },
   {
-    id: 5,
+    id: 6,
     name: "About",
     url: "/about",
     icon: <Info />,

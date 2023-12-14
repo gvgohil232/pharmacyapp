@@ -26,3 +26,13 @@ model Post {
   @@index([createdAt])
   @@map("posts")
 }
+
+model Offers {
+  id          Int      @id @default(autoincrement())
+  name        String
+  percentage  Int
+  type        String
+  bank        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
