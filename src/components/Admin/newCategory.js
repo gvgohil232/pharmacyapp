@@ -3,25 +3,22 @@ import OfferContext from "../../Context/pharmacyConetext";
 import axios from "axios";
 // import useGetUserId from "@/hooks/useGetUserId";
 
-const Admin = () => {
+const NewCategory = () => {
   const [name, setName] = useState("");
-  const [percentage, setPercentage] = useState(0);
-  const [type, setType] = useState("");
-  const [bank, setBank] = useState("");
+  // const [percentage, setPercentage] = useState(0);
+  // const [type, setType] = useState("");
+  // const [bank, setBank] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   // const { userId } = useGetUserId();
   // const { OfferContext } = useContext(OfferContext);
 
-  const handleNewOffer = async () => {
+  const handleNewCategory = async () => {
     // setIsLoading(true);
 
-    const response = await axios.post("/api/offer", {
-      offer: {
+    const response = await axios.post("/api/category", {
+      category: {
         name,
-        percentage,
-        type,
-        bank,
-        //  userId
+        
       },
     });
     // const res = await fetch("/api/offer", {
@@ -41,7 +38,7 @@ const Admin = () => {
     // setPercentage(0);
     // setType("");
     // setBank("");
-    const data = response;
+    // const data = response;
     console.log("response", response)
     // updateOffers(data.offer);
     // setIsLoading(false);
@@ -50,17 +47,17 @@ const Admin = () => {
   return (
     <div className="p-3 mt-9 flex flex-col space-y-4 justify-center border-2 border-green-400 ">
       <div className="p-2">
-        <label className="mb-1">Name</label>
+        <label className="mb-1">Category Name</label>
         <input
           type="text"
           className="w-full p-2 rounded-lg text-black/90"
-          placeholder="Enter name"
+          placeholder="Enter Category name"
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
       </div>
 
-      <div className="p-2">
+      {/* <div className="p-2">
         <label className="mb-1">Percentage</label>
         <input
           type="number"
@@ -91,13 +88,13 @@ const Admin = () => {
           onChange={(e) => setBank(e.target.value)}
           value={bank}
         />
-      </div>
+      </div> */}
 
       <div className="flex justify-center">
         <button
           disabled={isLoading}
           className="bg-green-400 w-fit px-7 py-2 rounded-lg disabled:bg-gray-700"
-          onClick={() => handleNewOffer()}
+          onClick={() => handleNewCategory()}
         >
           {isLoading ? "Saving.." : "Save"}
         </button>
@@ -106,4 +103,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default NewCategory;

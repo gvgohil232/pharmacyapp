@@ -7,10 +7,10 @@ import ColumnBanner from "@/components/ColumnBanner/ColumnBanner";
 import ProductCarousel from "@/components/ProductCarousel/ProductCarousel";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import { Card, CardContent, Typography } from "@mui/material";
-import Admin from "../../components/Admin/admin";
+import NewCategory from "../../components/Admin/newCategory";
 
-export default function OfferPage() {
-// { username }: { username: string | '' }
+export default function AdminPage() {
+  // { username }: { username: string | '' }
   return (
     <Container>
       {/* <PageTitle title="Pharmnacy Shop" /> */}
@@ -26,7 +26,7 @@ export default function OfferPage() {
       <ColumnBanner />
       <ProductCarousel />
       <ContactSection /> */}
-      <Admin />
+      <NewCategory />
     </Container>
   );
 }
