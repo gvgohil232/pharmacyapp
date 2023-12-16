@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import OfferContext from "../../Context/pharmacyConetext";
+import axios from "axios";
 // import useGetUserId from "@/hooks/useGetUserId";
 
-const NewOffer = () => {
+const Admin = () => {
   const [name, setName] = useState("");
   const [percentage, setPercentage] = useState(0);
   const [type, setType] = useState("");
@@ -13,25 +14,36 @@ const NewOffer = () => {
 
   const handleNewOffer = async () => {
     // setIsLoading(true);
-    const res = await fetch("/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+
+    const response = await axios.post("/api/offer", {
+      offer: {
         name,
         percentage,
         type,
         bank,
         //  userId
-      }),
+      },
     });
-    setName("");
-    setPercentage(0);
-    setType("");
-    setBank("");
-    const data = await res.json();
-    updateOffers(data.offer);
+    // const res = await fetch("/api/offer", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name,
+    //     percentage,
+    //     type,
+    //     bank,
+    //     //  userId
+    //   }),
+    // });
+    // setName("");
+    // setPercentage(0);
+    // setType("");
+    // setBank("");
+    const data = response;
+    console.log("response", response)
+    // updateOffers(data.offer);
     // setIsLoading(false);
   };
 
@@ -94,4 +106,4 @@ const NewOffer = () => {
   );
 };
 
-export default NewOffer;
+export default Admin;

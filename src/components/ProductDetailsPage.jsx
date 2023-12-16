@@ -15,7 +15,8 @@ import Star from "@mui/icons-material/Star";
 
 import { Products } from "../utills/globalData";
 import { assetsPrefix } from "../utills/constants";
-import { OfferDetails } from "../utills/globalData";
+import axios from "axios";
+// import { OfferDetails } from "../utills/globalData";
 
 const ProductDetailsPage = ({ id }) => {
   const wishlist = [];
@@ -23,6 +24,23 @@ const ProductDetailsPage = ({ id }) => {
 
   const [addWish, SetAddWish] = useState(wishlist.includes(id));
   const [productData, setProductData] = useState();
+  const [OfferDetails, setOfferDetails] = useState([]);
+
+  // useEffect(async () => {
+  //   const getOffers = await axios.get("/api/offer");
+  //   console.log("getoffers", getOffers)
+  //   setOfferDetails(getOffers?.data.offers);
+  // }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const getOffers = await axios.get("/api/offer");
+      setOfferDetails(getOffers?.data.offers);
+    }
+    fetchData();
+  }, []);
+
   const cartData = cartlist?.find((cart) => cart?.id === id);
 
   useEffect(() => {

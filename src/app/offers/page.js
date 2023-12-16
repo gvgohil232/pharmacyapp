@@ -7,7 +7,7 @@ import ColumnBanner from "@/components/ColumnBanner/ColumnBanner";
 import ProductCarousel from "@/components/ProductCarousel/ProductCarousel";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import { Card, CardContent, Typography } from "@mui/material";
-import NewOffer from "../../components/Offers/newOffer";
+import Admin from "../../components/Admin/admin";
 
 export default function OfferPage() {
 // { username }: { username: string | '' }
@@ -17,7 +17,7 @@ export default function OfferPage() {
       <Card variant="outlined" sx={{ my: 3 }}>
         <CardContent>
           <Typography variant="h5" component="div">
-            Offers Operations
+            Admin Section
           </Typography>
         </CardContent>
       </Card>
@@ -26,7 +26,7 @@ export default function OfferPage() {
       <ColumnBanner />
       <ProductCarousel />
       <ContactSection /> */}
-      <NewOffer />
+      <Admin />
     </Container>
   );
 }
