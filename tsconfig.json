@@ -34,7 +34,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "dist/types/**/*.ts"
-  ],
+, "src/components/CategoryCarousel/CategoryCarousel.js"  ],
   "exclude": [
     "node_modules"
   ]
