@@ -14,6 +14,7 @@ export interface ProductType {
   content?: string;
   price?: string;
   category?: string | any;
+  img?: string | any;
 }
 export default async function ProductPage() {
   const products = await getProducts();
