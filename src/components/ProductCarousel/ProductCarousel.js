@@ -3,7 +3,7 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Slider from 'react-slick';
 import ProductCarouselItem from './ProductCarouselItem';
-import { Products } from '../../utills/globalData'
+// import { Products } from '../../utills/globalData'
 import styles from './ProductCarousel.module.css'
 
 function PrevArrow(props) {
@@ -31,7 +31,7 @@ function NextArrow(props) {
     );
 }
 
-export default function ProductCarousel() {
+export default function ProductCarousel(products) {
     const settings = {
         initialSlide: 0,
         infinite: true,
@@ -77,7 +77,8 @@ export default function ProductCarousel() {
             marginY: '14px',
         }}>
             <Slider {...settings} className='ProductCarouselSlider'>
-                {Products?.map((item, i) => (
+                {/* {Products?.map((item, i) => ( */}
+                {products?.map((item, i) => (
                     <ProductCarouselItem key={i} item={item} />
                 ))}
             </Slider>

@@ -18,6 +18,11 @@ async function getCategories() {
   return categories;
 }
 
+async function getProducts() {
+  const categories = await prisma.products.findMany();
+  return categories;
+}
+
 // async function getCategories() {
 //   const res = await prisma.product.findMany();
 //   let cat: string[] = [];
@@ -32,11 +37,12 @@ async function getCategories() {
 
 export default async function Home() {
   const categories = await getCategories();
+  const products = await getProducts();
   console.log("categories at page.tsx", categories);
   const user = await getProfile();
   return (
     <Layout>
-      <HomePage categories={categories || []} username={user?.name || ""} />
+      <HomePage categories={categories || []} username={user?.name || ""} products={products || []} />
     </Layout>
   );
 }

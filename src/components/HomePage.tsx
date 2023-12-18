@@ -9,7 +9,7 @@ import ContactSection from "@/components/ContactSection/ContactSection";
 import { Card, CardContent, Typography } from "@mui/material";
 
 
-export default function HomePage({ categories, username }: { categories: string[], username: string | '' }) {  
+export default function HomePage({ categories, products, username }: { categories: string[], products: string[], username: string | '' }) {  
   console.log("categories at homepage", categories)
   return (
     <Container>
@@ -24,7 +24,7 @@ export default function HomePage({ categories, username }: { categories: string[
       <HomeCarousel />
       <CategoryCarousel categories={categories} />
       <ColumnBanner />
-      <ProductCarousel />
+      <ProductCarousel products={products}/>
       <ContactSection />
     </Container>
   );
