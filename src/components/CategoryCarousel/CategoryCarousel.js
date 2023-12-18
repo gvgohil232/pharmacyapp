@@ -2,7 +2,7 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
 import CategoryCarouselItem from "./CategoryCarouselItem";
-import { CategoryCarouselData } from "../../utills/globalData";
+// import { CategoryCarouselData } from "../../utills/globalData";
 import Slider from "react-slick";
 import styles from "./CategoryCarousel.module.css";
 import axios from "axios";
@@ -34,19 +34,20 @@ function NextArrow(props) {
   );
 }
 
-const CategoryCarousel = () => {
-  const [CategoryCarouselData, setCategoryCarouselData] = React.useState([]);
+const CategoryCarousel = ({categories}) => {
+  console.log("categories at carousel", categories)
+  // const [CategoryCarouselData, setCategoryCarouselData] = React.useState([]);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      const category = await axios.get("/api/category");
-      console.log("datata", category)
-      setCategoryCarouselData(category?.data.categories);
-    }
-    fetchData();
-  }, []);
+  // React.useEffect(() => {
+  //   async function fetchData() {
+  //     const category = await axios.get("/api/category");
+  //     console.log("datata", category)
+  //     setCategoryCarouselData(category?.data.categories);
+  //   }
+  //   fetchData();
+  // }, []);
 
- console.log("category data", CategoryCarouselData)
+//  console.log("category data", CategoryCarouselData)
 
   const settings = {
     initialSlide: 0,
@@ -95,7 +96,8 @@ const CategoryCarousel = () => {
       }}
     >
       <Slider {...settings}>
-        {CategoryCarouselData?.map((item, i) => (
+        {/* {CategoryCarouselData?.map((item, i) => ( */}
+        {categories?.map((item, i) => (
           <CategoryCarouselItem key={i} item={item} />
         ))}
       </Slider>

@@ -1,3 +1,4 @@
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 
 export async function GET(req, res) {
@@ -13,12 +14,13 @@ export async function GET(req, res) {
 
 export async function POST(req, res) {
   console.log("reaching to post");
-  const { category } = await req.json();
-  console.log("category", category);
+  const data = await req.formData();
+  const name = data.get("name");
+  console.log("category", name);
   try {
     const newCategory = await prisma.categories.create({
       data: {
-        name: category.name,
+        name: name,
       },
     });
     return NextResponse.json({ newCategory }, { status: 200 });
