@@ -15,11 +15,13 @@ async function getProfile() {
 
 async function getCategories() {
   const res = await prisma.product.findMany();
-  let cat = [];
+  let cat: string[] = [];
   if (res.length) {
-    res.forEach((product) => cat.push(product.category));
+    res.forEach((product) => cat.push(String(product.category)));
   }
-  cat = cat.filter((val, index, arr) => arr.indexOf(val) === index && val !== '' && val != null);
+  cat = cat.filter(
+    (val, index, arr) => arr.indexOf(val) === index && val !== "" && val != null
+  );
   return cat;
 }
 

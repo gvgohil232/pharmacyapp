@@ -11,8 +11,9 @@ async function getProducts() {
 export interface ProductType {
   id: string;
   name: string;
-  content?: string;
-  price?: string;
+  content?: string | null;
+  price?: string | number | null;
+  originalPrice?: string | number | null;
   category?: string | any;
   img?: string | any;
 }

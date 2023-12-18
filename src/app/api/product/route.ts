@@ -24,12 +24,12 @@ export async function POST(request: NextRequest) {
 
   const result = await prisma.product.create({
     data: {
-      name: name,
-      content: content,
-      img: imgfile,
-      price: price,
-      category: category,
-      originalPrice: originalPrice,
+      name: name ? String(name) : '',
+      content: String(content) || '',
+      img: imgfile || '',
+      price: String(price) || '',
+      category: String(category) || '',
+      originalPrice: String(originalPrice) || '',
       // published: true,
       // author: {create: {
       //     name: 'girirajsinh'

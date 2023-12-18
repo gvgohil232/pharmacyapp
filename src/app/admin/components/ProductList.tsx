@@ -30,7 +30,12 @@ const columns: TableColumn<DataRow>[] = [
     name: "Action",
     selector: (row: ProductType) => (
       <>
-        <Link className="btn btn-sm btn-warning mx-1" href={`/admin/products/edit/${row.id}`}>Edit</Link>
+        <Link
+          className="btn btn-sm btn-warning mx-1"
+          href={`/admin/products/edit/${row.id}`}
+        >
+          Edit
+        </Link>
         <DeleteProduct product_id={row.id} />
       </>
     ),
@@ -38,17 +43,21 @@ const columns: TableColumn<DataRow>[] = [
   },
 ];
 
-export default function ProductList({
-  products,
-}: {
-  products: DataRow[];
-}) {
+export default function ProductList({ products }: { products: ProductType[] }) {
+  const dataRows: DataRow[] = products.map((product) => {
+    return {
+      id: product.id,
+      name: product.name,
+      price: product?.price ? product?.price.toString() : "",
+      category: product.category,
+    };
+  });
   return (
     <>
       <DataTable
         title="Products List"
         columns={columns}
-        data={products}
+        data={dataRows}
         pagination
       />
     </>

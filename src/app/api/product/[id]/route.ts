@@ -27,15 +27,15 @@ export async function PUT(
 
   const result = await prisma.product.update({
     where: {
-      id: params.id,
+      id: String(params.id),
     },
     data: {
-      name: name,
-      content: content,
-      img: imgfile,
-      price: price,
-      category: category,
-      originalPrice: originalPrice,
+      name: String(name),
+      content: String(content),
+      img: String(imgfile),
+      price: String(price),
+      originalPrice: String(originalPrice),
+      category: String(category),
       // published: true,
       // author: {create: {
       //     name: 'girirajsinh'
@@ -53,7 +53,7 @@ export async function DELETE(
   const id = params.id;
 
   const post = await prisma.product.delete({
-    where: { id },
+    where: { id: String(id) },
   });
 
   return NextResponse.json(post);

@@ -8,7 +8,7 @@ import ProductCarousel from "@/components/ProductCarousel/ProductCarousel";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import { Card, CardContent, Typography } from "@mui/material";
 
-export default function HomePage({ categories, username }: { categories: [], username: string | '' }) {
+export default function HomePage({ categories, username }: { categories: string[], username: string | '' }) {
   return (
     <Container>
       {/* <PageTitle title="Pharmnacy Shop" /> */}

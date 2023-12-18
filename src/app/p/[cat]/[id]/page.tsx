@@ -3,6 +3,7 @@ import Layout from "@/components/Layout/Layout";
 import ProductDetailsPage from "@/components/ProductDetailsPage";
 import type { Metadata, ResolvingMetadata } from "next";
 import { prisma } from "../../../../../lib/prisma";
+import { ProductType } from "@/app/admin/products/page";
 
 type Props = {
   params: { id: string };
@@ -16,7 +17,7 @@ export async function generateMetadata(
   const id = params.id;
 
   // fetch data
-  const product = prisma.product.findFirst({ where: { id: id } });
+  const product = await prisma.product.findFirst({ where: { id: id } });
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -24,7 +25,9 @@ export async function generateMetadata(
   return {
     title: product?.name || "Product Details Page",
     openGraph: {
-      images: [product?.img, ...previousImages],
+      images: product?.img
+        ? [product?.img, ...previousImages]
+        : [...previousImages],
     },
   };
 }
