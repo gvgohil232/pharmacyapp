@@ -11,6 +11,7 @@ export default function AddProduct() {
   });
   const [file, setFile] = useState<string | any>("");
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (
     event:
@@ -34,7 +35,7 @@ export default function AddProduct() {
     }
 
     try {
-      await fetch("/api/product", {
+      const response = await fetch("/api/product", {
         method: "POST",
         // headers: {
         //   "Content-Type": "application/json",
@@ -42,9 +43,20 @@ export default function AddProduct() {
         body: dataValues,
       });
 
-      router.push("/admin/products");
+      if (!response.ok) {
+        // Handle non-successful response (e.g., server error)
+        const errorData = await response.json();
+        setError(errorData.error || "An error occurred");
+      } else {
+        // Reset form and navigate on success
+        setFormData({ name: "" });
+        setFile("");
+        setError(null);
+        router.push("/admin/products");
+      }
     } catch (error) {
       console.error(error);
+      setError("An unexpected error occurred");
     }
 
     setFormData({});
@@ -58,6 +70,11 @@ export default function AddProduct() {
         </Link>
         <h2 className="mr-5 text-lg font-medium truncate">Add New Product</h2>
       </div>
+      {error && (
+        <div className="mb-2 text-red-500">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded p-4 mb-4"
@@ -146,6 +163,7 @@ export default function AddProduct() {
             onChange={(e) => setFile(e.target.files?.[0])}
             required
           />
+          <img src={file ? URL.createObjectURL(file) : ""} alt="" width="100px" />
         </div>
         <div className="mb-2">
           <label

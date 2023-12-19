@@ -2,7 +2,7 @@
 import * as React from "react";
 import Container from "@mui/material/Container";
 import CategoryCarouselItem from "./CategoryCarouselItem";
-import { CategoryCarouselData } from "../../utills/globalData";
+// import { CategoryCarouselData } from "../../utills/globalData";
 import Slider from "react-slick";
 import styles from "./CategoryCarousel.module.css";
 import Link from "next/link";

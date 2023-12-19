@@ -7,6 +7,7 @@ import { ProductType } from "../products/page";
 export default function EditProduct({ product }: { product: ProductType }) {
   const [formData, setFormData] = useState<ProductType | any>(product);
   const [file, setFile] = useState<string | any>("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleInputChange = (
@@ -31,7 +32,7 @@ export default function EditProduct({ product }: { product: ProductType }) {
     }
 
     try {
-      await fetch("/api/product/"+product.id, {
+      const response = await fetch("/api/product/" + product.id, {
         method: "PUT",
         // headers: {
         //   "Content-Type": "application/json",
@@ -39,9 +40,20 @@ export default function EditProduct({ product }: { product: ProductType }) {
         body: dataValues,
       });
 
-      router.push("/admin/products");
+      if (!response.ok) {
+        // Handle non-successful response (e.g., server error)
+        const errorData = await response.json();
+        setError(errorData.error || "An error occurred");
+      } else {
+        // Reset form and navigate on success
+        setFormData({ name: "" });
+        setFile("");
+        setError(null);
+        router.push("/admin/products");
+      }
     } catch (error) {
       console.error(error);
+      setError("An unexpected error occurred");
     }
 
     setFormData({});
@@ -55,6 +67,11 @@ export default function EditProduct({ product }: { product: ProductType }) {
         </Link>
         <h2 className="mr-5 text-lg font-medium truncate">Edit Product</h2>
       </div>
+      {error && (
+        <div className="mb-2 text-red-500">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded p-4 mb-4"
@@ -141,9 +158,9 @@ export default function EditProduct({ product }: { product: ProductType }) {
             id="img"
             name="img"
             onChange={(e) => setFile(e.target.files?.[0])}
-            
+
           />
-          <img src={product.img} alt="" width="100px" />
+          <img src={file ? URL.createObjectURL(file) : product.img} alt="" width="100px" />
         </div>
         <div className="mb-2">
           <label
