@@ -9,7 +9,7 @@ async function getProducts() {
 }
 
 export interface ProductType {
-  id: string;
+  id: number;
   name: string;
   content?: string | null;
   price?: string | number | null;

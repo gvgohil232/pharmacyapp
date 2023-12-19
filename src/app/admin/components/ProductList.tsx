@@ -5,7 +5,7 @@ import { ProductType } from "../products/page";
 import DataTable, { TableColumn } from "react-data-table-component";
 import Link from "next/link";
 type DataRow = {
-  id: string;
+  id: number;
   name: string;
   price: string;
   category: string;
@@ -36,7 +36,7 @@ const columns: TableColumn<DataRow>[] = [
         >
           Edit
         </Link>
-        <DeleteProduct product_id={row.id} />
+        <DeleteProduct product_id={String(row.id)} />
       </>
     ),
     // sortable: true,

@@ -27,7 +27,7 @@ export async function PUT(
 
   const result = await prisma.product.update({
     where: {
-      id: String(params.id),
+      id: Number(params.id),
     },
     data: {
       name: String(name),
@@ -53,7 +53,7 @@ export async function DELETE(
   const id = params.id;
 
   const post = await prisma.product.delete({
-    where: { id: String(id) },
+    where: { id: Number(id) },
   });
 
   return NextResponse.json(post);

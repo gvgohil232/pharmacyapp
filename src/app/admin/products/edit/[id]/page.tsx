@@ -3,9 +3,8 @@ import { prisma } from "../../../../../../lib/prisma";
 import { ProductType } from "../../page";
 
 async function getProduct(id: string): Promise<ProductType | null> {
-  const product = await prisma.product.findFirst({ where: { id: id } });
-  if (product) return product;
-  return null;
+  const product = await prisma.product.findFirst({ where: { id: Number(id) } });
+  return product;
 }
 
 export default async function EditProductPage({
