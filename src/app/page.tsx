@@ -14,20 +14,19 @@ async function getProfile() {
 }
 
 async function getCategories() {
-  const res = await prisma.product.findMany();
-  let cat: string[] = [];
-  if (res.length) {
-    res.forEach((product) => cat.push(String(product.category)));
-  }
-  cat = cat.filter(
-    (val, index, arr) => arr.indexOf(val) === index && val !== "" && val != null
-  );
+  const cat = await prisma.category.findMany();
+  // let cat: string[] = [];
+  // if (res.length) {
+  //   res.forEach((product) => cat.push(String(product.category)));
+  // }
+  // cat = cat.filter(
+  //   (val, index, arr) => arr.indexOf(val) === index && val !== "" && val != null
+  // );
   return cat;
 }
 
 export default async function Home() {
   const categories = await getCategories();
-  console.log("categories", categories);
   const user = await getProfile();
   return (
     <Layout>

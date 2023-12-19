@@ -3,6 +3,7 @@ import Layout from "@/components/Layout/Layout";
 import ProductDetailsPage from "@/components/ProductDetailsPage";
 import { Metadata, ResolvingMetadata } from "next";
 import { prisma } from "../../../../lib/prisma";
+import Link from "next/link";
 
 type Props = {
   params: { cat: string; id: string };
@@ -17,31 +18,57 @@ export async function generateMetadata(
   const cat = params.cat;
 
   // fetch data
-  // const products = prisma.product.findMany({ where: { category: cat } });
+  const category = await prisma.category.findFirst({
+    where: { id: Number(cat) },
+  });
 
   // optionally access and extend (rather than replace) parent metadata
   // const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: cat || "Product Category Page",
+    title: category?.name
+      ? category?.name + " - "
+      : "" + "Product Category Page",
   };
 }
 
-async function getProductsByCategory(category: string) {
+async function getProductsByCategory(category: number | string) {
   const products = await prisma.product.findMany({
-    where: { category: category },
+    where: {
+      categories: {
+        some: {
+          category: {
+            id: Number(category),
+          },
+        },
+      },
+    },
   });
   return products;
 }
 
-async function CategoryPage({ params }: { params: { cat: string } }) {
-  const products = getProductsByCategory(params.cat);
-  console.log("products", products);
+async function CategoryPage({
+  params,
+}: {
+  params: { cat: number | string; id: number };
+}) {
+  const products = await getProductsByCategory(params.cat);
   return (
     <>
       <Layout>
-        sdf
-        {/* <ProductDetailsPage id={params?.id?.[0]} /> */}
+        <h3>Products by Category: {params.cat}</h3>
+        {products?.map((p) => {
+          return (
+            <Link
+              href={`/p/${params.cat}/${p.id}`}
+              key={p.id}
+              className="card p-4 border m-2"
+            >
+              {p.name}
+            </Link>
+          );
+        })}
+        {/* <ProductListing category="medicines" /> */}
       </Layout>
     </>
   );

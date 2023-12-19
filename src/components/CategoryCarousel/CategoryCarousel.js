@@ -35,10 +35,9 @@ function NextArrow(props) {
 }
 
 const CategoryCarousel = ({ categories }) => {
-  console.log("categoryCarousel", categories);
   const settings = {
     initialSlide: 0,
-    infinite: true,
+    infinite: false,
     slidesToShow: 5,
     slidesToScroll: 1,
     speed: 500,
@@ -82,24 +81,25 @@ const CategoryCarousel = ({ categories }) => {
         marginY: "14px",
       }}
     >
-      <Slider {...settings}>
+      {/* <Slider {...settings}>
         {categories.length > 0 &&
           categories.map((cat) => {
-            <div key={"catid" + cat}>
+            <div key={"catid" + cat.id}>
               <Link
-                href={"/p/" + cat}
+                href={"/p/" + cat.id}
                 className="btn btn-sm m-3 p-3 rounded-sm"
               >
-                {cat}
+                {cat.name}
               </Link>
             </div>;
           })}
       </Slider>
-      {/* <Slider {...settings}>
-        {CategoryCarouselData?.map((item, i) => (
+    */}
+      <Slider {...settings}>
+        {categories?.map((item, i) => (
           <CategoryCarouselItem key={i} item={item} />
         ))}
-      </Slider> */}
+      </Slider>
     </Container>
   );
 };

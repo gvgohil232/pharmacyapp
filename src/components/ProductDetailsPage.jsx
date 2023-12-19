@@ -17,19 +17,19 @@ import { Products } from "../utills/globalData";
 import { assetsPrefix } from "../utills/constants";
 import { OfferDetails } from "../utills/globalData";
 
-const ProductDetailsPage = ({ id }) => {
+const ProductDetailsPage = ({ id, productDetails}) => {
   const wishlist = [];
   const cartlist = [];
 
   const [addWish, SetAddWish] = useState(wishlist.includes(id));
-  const [productData, setProductData] = useState();
+  const [productData, setProductData] = useState(productDetails);
   const cartData = cartlist?.find((cart) => cart?.id === id);
 
-  useEffect(() => {
-    const data = Products?.find((product) => product?.id === id);
-    console.log("pro", id, data);
-    setProductData(data);
-  }, [id]);
+  // useEffect(() => {
+  //   const data = Products?.find((product) => product?.id === id);
+  //   console.log("pro", id, data);
+  //   setProductData(data);
+  // }, [id]);
 
   const addToWishlistFunction = (prodId) => {
     if (!addWish) {

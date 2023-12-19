@@ -11,14 +11,24 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   password String
   name     String?
+  products Product[]
+}
+
+model Category {
+  id        Int                   @id @default(autoincrement())
+  name      String
+  img       String?
+  posts     CategoriesOnProduct[]
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
 }
 
 model Product {
-  id            String   @id @default(cuid())
+  id            Int                @id @default(autoincrement())
   name          String
   img           String?
   content       String?
@@ -27,11 +37,25 @@ model Product {
   category      String?
   ratings       String?
   reviews       String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  categories    CategoriesOnProduct[]
+  author        User?                 @relation(fields: [authorId], references: [id])
+  authorId      Int?
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
 
   @@index([createdAt])
   @@map("products")
+}
+
+model CategoriesOnProduct {
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int // relation scalar field (used in the `@relation` attribute above)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int // relation scalar field (used in the `@relation` attribute above)
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([productId, categoryId])
 }
 
 model Post {
@@ -42,4 +66,14 @@ model Post {
 
   @@index([createdAt])
   @@map("posts")
+}
+
+model Offers {
+  id         Int      @id @default(autoincrement())
+  name       String
+  percentage Int
+  type       String
+  bank       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
