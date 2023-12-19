@@ -16,11 +16,11 @@ const columns: TableColumn<DataRow>[] = [
     selector: (row: CategoryType) => row.name,
     // sortable: true,
   },
-  // {
-  //   name: "post",
-  //   selector: (row: CategoryType) => row.posts,
-  //   // sortable: true,
-  // },
+  {
+    name: "post",
+    selector: (row: CategoryType) => row.posts,
+    // sortable: true,
+  },
   {
     name: "Action",
     selector: (row: CategoryType) => (
@@ -43,6 +43,7 @@ export default function CategoryList({ categories }: { categories: CategoryType[
     return {
       id: category.id,
       name: category.name,
+      img: category?.img || '',
       posts: category.posts,
     };
   });
