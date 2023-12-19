@@ -44,6 +44,15 @@ export default function RootLayout({
             Products
           </span>
         </Link>
+        <Link
+          href="/admin/categories"
+          className="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white"
+        >
+          <i className="bi bi-bookmark-fill"></i>
+          <span className="text-[15px] ml-4 text-gray-200 font-bold">
+            Categories
+          </span>
+        </Link>
         <div className="my-4 bg-gray-600 h-[1px]"></div>
       </div>
       <div className="mt-3 mr-5 ml-[330px]">{children}</div>

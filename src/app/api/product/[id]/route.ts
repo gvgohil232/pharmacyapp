@@ -7,6 +7,7 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: String } }
 ) {
+  try{
   const res = await request.formData();
   const file: File | null = res.get("img") as unknown as File;
   let imgfile = "";
@@ -44,12 +45,17 @@ export async function PUT(
   });
 
   return NextResponse.json({ result });
+} catch (error) {
+  console.error("Error in POST:", error);
+  return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+}
 }
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: String } }
 ) {
+  try {
   const id = params.id;
 
   const post = await prisma.product.delete({
@@ -57,4 +63,8 @@ export async function DELETE(
   });
 
   return NextResponse.json(post);
+} catch (error) {
+  console.error("Error in POST:", error);
+  return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+}
 }

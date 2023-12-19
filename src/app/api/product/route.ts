@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { join } from "path";
 
 export async function POST(request: NextRequest) {
+  try{
   const res = await request.formData();
   const file: File | null = res.get("img") as unknown as File;
   let imgfile = "";
@@ -38,4 +39,8 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({ result });
+} catch (error) {
+  console.error("Error in POST:", error);
+  return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+}
 }
