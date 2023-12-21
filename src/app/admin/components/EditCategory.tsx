@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CategoryType } from "../categories/page";
+import Image from "next/image";
 
 export default function EditCategory({ category }: { category: CategoryType }) {
   const [formData, setFormData] = useState<CategoryType | any>(category);
@@ -24,7 +25,8 @@ export default function EditCategory({ category }: { category: CategoryType }) {
 
     Object.entries(formData).forEach(
       ([key, value]: [key: string, value: string | any]) => {
-        dataValues.set(key, value);
+        if (key !== 'img')
+          dataValues.set(key, value);
       }
     );
     if (file !== "") {
@@ -109,7 +111,11 @@ export default function EditCategory({ category }: { category: CategoryType }) {
             onChange={(e) => setFile(e.target.files?.[0])}
 
           />
-          <img src={file ? URL.createObjectURL(file) : category.img} alt="" width="100px" />
+          {file && file instanceof File ?
+            <Image src={URL.createObjectURL(file)} alt="" height="100" width="100" /> :
+            category?.img ?
+              <Image src={category?.img} alt="" height="100" width="100" /> : ''
+          }
         </div>
 
         <div className="flex items-center justify-between">

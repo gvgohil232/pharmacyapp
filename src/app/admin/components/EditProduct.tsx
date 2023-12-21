@@ -3,8 +3,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProductType } from "../products/page";
+import { CategoryType } from "../categories/page";
+import Image from "next/image";
 
-export default function EditProduct({ product }: { product: ProductType }) {
+export default function EditProduct({ product, categories }: { product: ProductType, categories: CategoryType }) {
   const [formData, setFormData] = useState<ProductType | any>(product);
   const [file, setFile] = useState<string | any>("");
   const [error, setError] = useState<string | null>(null);
@@ -19,12 +21,14 @@ export default function EditProduct({ product }: { product: ProductType }) {
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+
     event.preventDefault();
     const dataValues = new FormData();
 
     Object.entries(formData).forEach(
       ([key, value]: [key: string, value: string | any]) => {
-        dataValues.set(key, value);
+        if (key !== 'img')
+          dataValues.set(key, value);
       }
     );
     if (file !== "") {
@@ -46,8 +50,6 @@ export default function EditProduct({ product }: { product: ProductType }) {
         setError(errorData.error || "An error occurred");
       } else {
         // Reset form and navigate on success
-        setFormData({ name: "" });
-        setFile("");
         setError(null);
         router.push("/admin/products");
       }
@@ -135,15 +137,22 @@ export default function EditProduct({ product }: { product: ProductType }) {
           >
             Category:
           </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
+          <select
+            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="category"
             name="category"
             value={formData?.category || ""}
             onChange={handleInputChange}
             required
-          />
+          >
+            {/* Populate options dynamically from your category data */}
+            <option value="" disabled>Select category</option>
+            {categories?.map((category: CategoryType) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-2">
           <label
@@ -160,7 +169,11 @@ export default function EditProduct({ product }: { product: ProductType }) {
             onChange={(e) => setFile(e.target.files?.[0])}
 
           />
-          <img src={file ? URL.createObjectURL(file) : product.img} alt="" width="100px" />
+          {file && file instanceof File ?
+            <Image src={URL.createObjectURL(file)} alt="" height="100" width="100" /> :
+            product?.img ?
+              <Image src={product?.img} alt="" height="100" width="100" /> : ''
+          }
         </div>
         <div className="mb-2">
           <label

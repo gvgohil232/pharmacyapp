@@ -31,6 +31,16 @@ export async function POST(request: NextRequest) {
       price: String(price) || '',
       category: String(category) || '',
       originalPrice: String(originalPrice) || '',
+      categories: {
+        create: [
+          {
+            category: {
+              connect: { id: Number(category) }, // Replace with the actual ID of the category
+            },
+            assignedBy: 'AuthId', // You might need to provide the assignedBy value
+          },
+        ],
+      },
       // published: true,
       // author: {create: {
       //     name: 'girirajsinh'

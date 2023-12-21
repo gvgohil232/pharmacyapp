@@ -32,10 +32,16 @@ export async function generateMetadata(
       title:
         (product && product?.name ? product?.name + " - " : "") +
         "Product Details Page",
+      description: (product?.category
+        ? product?.category + " - "
+        : "") + "Product",
+      // siteName: `http://localhost:3000/product/${id}`,
       openGraph: {
-        images: product?.img
-          ? [product?.img, ...previousImages]
-          : [...previousImages],
+        // images: product?.img
+        //   ? [product?.img, ...previousImages]
+        //   : [...previousImages],
+        images: product?.img ? [product.img] : previousImages,
+        url: `https://pharmacyapp.vercel.app/product/${id}`,
       },
     };
   }
@@ -49,6 +55,7 @@ export async function generateMetadata(
 
 const profile = async ({ params }: { params: { id: number } }) => {
   const product = await getProductsById(Number(params?.id));
+  console.log("params", params)
   return (
     <>
       <Layout>
