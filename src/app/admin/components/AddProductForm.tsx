@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ProductType } from "../products/page";
 import { CategoryType } from "../categories/page";
+import Image from "next/image";
 
-export default function AddProductForm({ categories }: { categories: CategoryType }) {
+export default function AddProductForm({ categories }: { categories: CategoryType[] }) {
     const [formData, setFormData] = useState<ProductType | any>({
         name: "",
         content: "",
@@ -18,6 +19,7 @@ export default function AddProductForm({ categories }: { categories: CategoryTyp
         event:
             | React.ChangeEvent<HTMLInputElement>
             | React.ChangeEvent<HTMLTextAreaElement>
+            | React.ChangeEvent<HTMLSelectElement>
     ) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
@@ -174,7 +176,7 @@ export default function AddProductForm({ categories }: { categories: CategoryTyp
                         onChange={(e) => setFile(e.target.files?.[0])}
                         required
                     />
-                    <img src={file ? URL.createObjectURL(file) : ""} alt="" width="100px" />
+                    <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
                 </div>
                 <div className="mb-2">
                     <label

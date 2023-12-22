@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CategoryCarousel.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const CategoryCarouselItem = ({ item }) => {
   return (
@@ -16,7 +17,7 @@ const CategoryCarouselItem = ({ item }) => {
       }}
     >
       {item?.img ? (
-        <img
+        <Image
           src={item?.img}
           alt={item?.name?.[0]}
           style={{

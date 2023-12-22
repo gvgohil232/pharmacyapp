@@ -38,6 +38,7 @@ const NotFound = ({ what }) => {
     <div className="text-center mx-auto py-5 my-5">
       <Image
         src={content?.img}
+        alt=""
         height={200}
         width={200}
         className="my-5"

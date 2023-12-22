@@ -5,11 +5,12 @@ import { join } from "path";
 
 export interface ProductTypeUpdate {
   id?: number;
-  name?: string;
-  content?: string | null;
-  price?: string | number | null;
-  originalPrice?: string | number | null;
+  name?: string | any;
+  content?: string | any;
+  price?: string | number | any;
+  originalPrice?: string | number | any;
   category?: string | any;
+  categories?:string | any;
   img?: string | any;
 }
 export async function PUT(

@@ -9,7 +9,7 @@ import { useState } from "react";
 import styles from "./ProductCarousel.module.css";
 import { useRouter } from "next/navigation";
 
-const ProductCarouselItem = ({ item }) => {
+const ProductCarouselItem = ({ item, categoryName }) => {
   const router = useRouter();
 
   const wishlist = [];
@@ -65,7 +65,7 @@ const ProductCarouselItem = ({ item }) => {
           color="text.secondary"
           component="div"
         >
-          {item?.category}
+          {categoryName}
         </Typography>
         <Typography
           variant="string"

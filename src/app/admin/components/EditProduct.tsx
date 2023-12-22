@@ -6,7 +6,7 @@ import { ProductType } from "../products/page";
 import { CategoryType } from "../categories/page";
 import Image from "next/image";
 
-export default function EditProduct({ product, categories }: { product: ProductType, categories: CategoryType }) {
+export default function EditProduct({ product, categories }: { product: ProductType, categories: CategoryType[] }) {
   const [formData, setFormData] = useState<ProductType | any>(product);
   const [file, setFile] = useState<string | any>("");
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +16,7 @@ export default function EditProduct({ product, categories }: { product: ProductT
     event:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
   ) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };

@@ -1,10 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  Paper,
-  Container,
-  Grid,
-} from "@mui/material";
+import { Paper, Container, Grid } from "@mui/material";
 import ProductCarouselItem from "../ProductCarousel/ProductCarouselItem";
 import { styled } from "@mui/material/styles";
 
@@ -17,13 +13,18 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 
-const ProductListingNew = ({ products }) => {
+const ProductListingNew = ({ products, category }) => {
 
   return (
     <Container sx={{ marginY: "14px" }}>
       <Grid container spacing={2}>
         <Grid item xs={10}>
-          <Paper elevation={0}>{products?.length} Products</Paper>
+          {/* <Paper elevation={0}>{products?.length} Products</Paper> */}
+          <Paper elevation={0}>
+            {products?.length > 1
+              ? products?.length + " "+"Products"
+              : products?.length + " "+"Product"}
+          </Paper>
           <Item
             sx={{
               display: "flex",
@@ -32,7 +33,7 @@ const ProductListingNew = ({ products }) => {
             }}
           >
             {products?.map((item, index) => (
-              <ProductCarouselItem item={item} key={index} />
+              <ProductCarouselItem item={item} key={index} categoryName={category?.name} />
             ))}
           </Item>
         </Grid>

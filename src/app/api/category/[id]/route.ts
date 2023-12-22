@@ -3,9 +3,9 @@ import { prisma } from "../../../../../lib/prisma";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 
-export interface ProductTypeUpdate {
-  id?: number;
-  name?: string;
+export interface CategoryTypeData {
+  id?: number | any;
+  name?: string | any;
   img?: string | any;
 }
 
@@ -16,8 +16,8 @@ export async function PUT(
   try {
     const res = await request.formData();
     const file: File | null = res.get("img") as unknown as File;
-    const updateData: ProductTypeUpdate = {};
-  if(res.get("name") !== ''){
+    let updateData: CategoryTypeData = {};
+    if (typeof res.get("name") === 'string' && res.get("name") !== '') {
     updateData.name = res.get("name");
   }
   let imgfile = "";
@@ -30,7 +30,6 @@ export async function PUT(
     updateData.img = "/assets/uploads/" + file.name;
     // console.log(`open ${path} to see uploaded files`);
   }
-  
     const result = await prisma.category.update({
       where: {
         id: Number(params.id),

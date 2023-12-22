@@ -12,7 +12,7 @@ export interface CategoryType {
   id: number;
   name: string;
   img?: string | any;
-  posts?: string | any;
+  // posts?: string | any;
 }
 export default async function CategoryPage() {
   const cat = await getCategories();

@@ -8,6 +8,19 @@ type Props = {
   params: { cat: string; id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+async function getSingleCategory(categoryId: number | string) {
+  try {
+    const cat = await prisma.category.findFirst({
+      where: { id: Number(categoryId) },
+    });
+    return cat;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
@@ -59,13 +72,14 @@ async function CategoryPage({
   params,
 }: {
   params: { cat: number | string; id: number };
-}) {
+},) {
   const products = await getProductsByCategory(params.cat);
+  const category = await getSingleCategory(params.cat);
 
   return (
     <>
       <Layout>
-        <ProductListingNew products={products} />
+        <ProductListingNew products={products} category={category} />
       </Layout>
     </>
   );
