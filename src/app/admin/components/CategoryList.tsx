@@ -8,7 +8,7 @@ type DataRow = {
   id: number;
   name: string;
   img: string;
-  posts: object;
+  // posts: object;
 };
 const columns: TableColumn<DataRow>[] = [
   {
@@ -16,14 +16,14 @@ const columns: TableColumn<DataRow>[] = [
     selector: (row: CategoryType) => row.name,
     // sortable: true,
   },
-  {
-    name: "post",
-    selector: (row: CategoryType) => row.posts,
-    // sortable: true,
-  },
+  // {
+  //   name: "post",
+  //   selector: (row: CategoryType) => row.posts,
+  //   // sortable: true,
+  // },
   {
     name: "Action",
-    selector: (row: CategoryType) => (
+    cell: (row: CategoryType) => (
       <>
         <Link
           className="btn btn-sm btn-warning mx-1"
@@ -44,7 +44,7 @@ export default function CategoryList({ categories }: { categories: CategoryType[
       id: category.id,
       name: category.name,
       img: category?.img || '',
-      posts: category.posts,
+      // posts: category.posts,
     };
   });
   return (

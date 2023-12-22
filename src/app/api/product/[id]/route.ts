@@ -3,6 +3,16 @@ import { prisma } from "../../../../../lib/prisma";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 
+export interface ProductTypeUpdate {
+  id?: number;
+  name?: string | any;
+  content?: string | any;
+  price?: string | number | any;
+  originalPrice?: string | number | any;
+  category?: string | any;
+  categories?:string | any;
+  img?: string | any;
+}
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: String } }
@@ -10,38 +20,51 @@ export async function PUT(
   try{
   const res = await request.formData();
   const file: File | null = res.get("img") as unknown as File;
-  let imgfile = "";
+
+  const updateData: ProductTypeUpdate = {};
+  if(res.get("name") !== ''){
+    updateData.name = res.get("name");
+  }
+  if(res.get("price")){
+    updateData.price = res.get("price");
+  }
+  if(res.get("content")){
+    updateData.content = res.get("content");
+  }
+  if(res.get("originalPrice")){
+    updateData.originalPrice = res.get("originalPrice");
+  }
+  if(res.get("category")){
+    const category = res.get("category");
+    
+    updateData.category = String(category);
+    updateData.categories= {
+        create: [
+          {
+            category: {
+              connect: { id: Number(category) }, // Replace with the actual ID of the category
+            },
+            assignedBy: 'AuthId', // You might need to provide the assignedBy value
+          },
+        ],
+      };
+  }
   if (file) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
     const path = join(process.cwd(), "/public/assets/uploads", file.name);
     await writeFile(path, buffer);
-    imgfile = "/assets/uploads/" + file.name;
+    updateData.img = "/assets/uploads/" + file.name;
     // console.log(`open ${path} to see uploaded files`);
   }
-  const name = res.get("name");
-  const price = res.get("price");
-  const content = res.get("content");
-  const originalPrice = res.get("originalPrice");
-  const category = res.get("category");
+  
 
   const result = await prisma.product.update({
     where: {
       id: Number(params.id),
     },
-    data: {
-      name: String(name),
-      content: String(content),
-      img: String(imgfile),
-      price: String(price),
-      originalPrice: String(originalPrice),
-      category: String(category),
-      // published: true,
-      // author: {create: {
-      //     name: 'girirajsinh'
-      // }}
-    },
+    data: {...updateData},
   });
 
   return NextResponse.json({ result });

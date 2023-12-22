@@ -13,15 +13,28 @@ async function getProduct(id: string): Promise<ProductType | null> {
   }
 }
 
+async function getCategories() {
+  try {
+    const cat = await prisma.category.findMany();
+    console.log("from app page.tsx")
+    return cat;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+
+
 export default async function EditProductPage({
   params: { id },
 }: {
   params: { id: string };
 }) {
   try {
+    const categories = await getCategories();
     const product = await getProduct(id);
     if (id && id !== "" && product !== null && typeof product == "object") {
-      return <EditProduct product={product} />;
+      return <EditProduct product={product} categories={categories} />;
     } else {
       return <>No product found!!!</>;
     }

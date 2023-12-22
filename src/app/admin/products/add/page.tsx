@@ -1,67 +1,19 @@
-"use client";
 import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ProductType } from "../../products/page";
+import { prisma } from "../../../../../lib/prisma";
+import AddProductForm from "../../components/AddProductForm";
 
-export default function AddProduct() {
-  const [formData, setFormData] = useState<ProductType | any>({
-    name: "",
-    content: "",
-  });
-  const [file, setFile] = useState<string | any>("");
-  const router = useRouter();
-  const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (
-    event:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const dataValues = new FormData();
-
-    Object.entries(formData).forEach(
-      ([key, value]: [key: string, value: string | any]) => {
-        dataValues.set(key, value);
-      }
-    );
-    if (file !== "") {
-      dataValues.set("img", file);
-    }
-
-    try {
-      const response = await fetch("/api/product", {
-        method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
-        body: dataValues,
-      });
-
-      if (!response.ok) {
-        // Handle non-successful response (e.g., server error)
-        const errorData = await response.json();
-        setError(errorData.error || "An error occurred");
-      } else {
-        // Reset form and navigate on success
-        setFormData({ name: "" });
-        setFile("");
-        setError(null);
-        router.push("/admin/products");
-      }
-    } catch (error) {
-      console.error(error);
-      setError("An unexpected error occurred");
-    }
-
-    setFormData({});
-  };
-
+async function getCategories() {
+  try {
+    const cat = await prisma.category.findMany();
+    return cat;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+export default async function AddProduct() {
+  const categories = await getCategories();
   return (
     <div>
       <div className="flex items-center  h-10 intro-y">
@@ -70,127 +22,7 @@ export default function AddProduct() {
         </Link>
         <h2 className="mr-5 text-lg font-medium truncate">Add New Product</h2>
       </div>
-      {error && (
-        <div className="mb-2 text-red-500">
-          <strong>Error:</strong> {error}
-        </div>
-      )}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-md rounded p-4 mb-4"
-      >
-        <h5 className="mb-2">Add Product</h5>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Name:
-          </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            id="name"
-            name="name"
-            value={formData?.name || ""}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="price"
-          >
-            Price:
-          </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            id="price"
-            name="price"
-            value={formData?.price || ""}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="originalPrice"
-          >
-            Original Price:
-          </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            id="originalPrice"
-            name="originalPrice"
-            value={formData?.originalPrice || ""}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="category"
-          >
-            Category:
-          </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            id="category"
-            name="category"
-            value={formData?.category || ""}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="img"
-          >
-            Image:
-          </label>
-          <input
-            className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="file"
-            id="img"
-            name="img"
-            onChange={(e) => setFile(e.target.files?.[0])}
-            required
-          />
-          <img src={file ? URL.createObjectURL(file) : ""} alt="" width="100px" />
-        </div>
-        <div className="mb-2">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="content"
-          >
-            Content:
-          </label>
-          <textarea
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="content"
-            name="content"
-            value={formData?.content}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Save
-          </button>
-        </div>
-      </form>
+      <AddProductForm categories={categories} />
     </div>
   );
 }

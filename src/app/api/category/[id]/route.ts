@@ -3,6 +3,12 @@ import { prisma } from "../../../../../lib/prisma";
 import { writeFile } from "fs/promises";
 import { join } from "path";
 
+export interface CategoryTypeData {
+  id?: number | any;
+  name?: string | any;
+  img?: string | any;
+}
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: String } }
@@ -10,27 +16,25 @@ export async function PUT(
   try {
     const res = await request.formData();
     const file: File | null = res.get("img") as unknown as File;
-    let imgfile = "";
+    let updateData: CategoryTypeData = {};
+    if (typeof res.get("name") === 'string' && res.get("name") !== '') {
+    updateData.name = res.get("name");
+  }
+  let imgfile = "";
+  if (file) {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-    if (file) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
-      const path = join(process.cwd(), "/public/assets/uploads", file.name);
-      await writeFile(path, buffer);
-      imgfile = "/assets/uploads/" + file.name;
-    }
-
-    const name = res.get("name");
-
+    const path = join(process.cwd(), "/public/assets/uploads", file.name);
+    await writeFile(path, buffer);
+    updateData.img = "/assets/uploads/" + file.name;
+    // console.log(`open ${path} to see uploaded files`);
+  }
     const result = await prisma.category.update({
       where: {
         id: Number(params.id),
       },
-      data: {
-        name: String(name),
-        img: String(imgfile),
-      },
+      data: {...updateData},
     });
 
     return NextResponse.json({ result });

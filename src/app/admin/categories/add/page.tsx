@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CategoryType } from "../page";
+import Image from "next/image";
 
 export default function AddCategory() {
   const [formData, setFormData] = useState<CategoryType | any>({
@@ -134,7 +135,7 @@ export default function AddCategory() {
             alt="File Preview"
             style={{ maxWidth: '100%', maxHeight: '100px', marginTop: '10px' }}
           /> */}
-          <img src={file ? URL.createObjectURL(file) : ""} alt="File Preview" width="100px" />
+          <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
         </div>
 
         <div className="flex items-center justify-between">

@@ -1,20 +1,30 @@
 import React from "react";
 import Layout from "@/components/Layout/Layout";
-import ProductDetailsPage from "@/components/ProductDetailsPage";
 import { Metadata, ResolvingMetadata } from "next";
 import { prisma } from "../../../../lib/prisma";
-import Link from "next/link";
+import ProductListingNew from "@/components/ProductListingNew/productListingNew"
 
 type Props = {
   params: { cat: string; id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+async function getSingleCategory(categoryId: number | string) {
+  try {
+    const cat = await prisma.category.findFirst({
+      where: { id: Number(categoryId) },
+    });
+    return cat;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return [];
+  }
+}
+
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  // read route params
-  // const id = params.id;
   const cat = params.cat;
 
   // fetch data
@@ -23,12 +33,23 @@ export async function generateMetadata(
   });
 
   // optionally access and extend (rather than replace) parent metadata
-  // const previousImages = (await parent).openGraph?.images || [];
+  const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: category?.name
+    title: (category?.name
       ? category?.name + " - "
-      : "" + "Product Category Page",
+      : "") + "Product Category Page",
+    // description: (category?.name
+    //   ? category?.name + " - "
+    //   : "") + "Products",
+    description: `Discover the perfect ${category?.name} Products at our pharmacy.`,
+    openGraph: {
+      // images: category?.img
+      //   ? [category?.img, ...previousImages]
+      //   : [...previousImages],
+      images: category?.img ? [category.img] : previousImages,
+      url: `https://pharmacyapp.vercel.app/p/${cat}`
+    },
   };
 }
 
@@ -51,24 +72,14 @@ async function CategoryPage({
   params,
 }: {
   params: { cat: number | string; id: number };
-}) {
+},) {
   const products = await getProductsByCategory(params.cat);
+  const category = await getSingleCategory(params.cat);
+
   return (
     <>
       <Layout>
-        <h3>Products by Category: {params.cat}</h3>
-        {products?.map((p) => {
-          return (
-            <Link
-              href={`/p/${params.cat}/${p.id}`}
-              key={p.id}
-              className="card p-4 border m-2"
-            >
-              {p.name}
-            </Link>
-          );
-        })}
-        {/* <ProductListing category="medicines" /> */}
+        <ProductListingNew products={products} category={category} />
       </Layout>
     </>
   );
