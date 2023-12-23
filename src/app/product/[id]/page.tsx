@@ -49,7 +49,7 @@ export async function generateMetadata(
         ? product?.category + " - "
         : "") + "Product",
       openGraph: {
-        images: product?.img ? [process.env.APP_URL + product?.img, ...previousImages] : [...previousImages],
+        images: product?.img ? [process.env.APP_URL + product?.img] :previousImages,
       },
     };
   }
