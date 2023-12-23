@@ -20,6 +20,8 @@ const CategoryCarouselItem = ({ item }) => {
         <Image
           src={item?.img}
           alt={item?.name?.[0]}
+          height={100}
+          width={100}
           style={{
             height: 65,
             width: 65,

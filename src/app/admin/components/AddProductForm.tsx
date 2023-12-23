@@ -176,7 +176,7 @@ export default function AddProductForm({ categories }: { categories: CategoryTyp
                         onChange={(e) => setFile(e.target.files?.[0])}
                         required
                     />
-                    <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
+                    <Image src={file ? URL.createObjectURL(file) : ""} alt="" height={100} width={100} />
                 </div>
                 <div className="mb-2">
                     <label

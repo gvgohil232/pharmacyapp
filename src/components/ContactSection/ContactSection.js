@@ -40,7 +40,7 @@ export default function ContactSection() {
     <Box sx={{ width: "100%", margin: "8px 0" }}>
       <Stack spacing={2}>
         <Item>
-          <InnerItem>Youre Always Welcome To</InnerItem>
+          <InnerItem>You&apos;re Always Welcome To</InnerItem>
           <InnerItem>
             <PsButton>Contact us</PsButton>
           </InnerItem>

@@ -15,7 +15,7 @@ export default function HomePage({ categories, username, products }: { categorie
       <Card variant="outlined" sx={{ 'my': 3 }}>
         <CardContent>
           <Typography variant="h5" component="div">
-            Wellcome Back, {username || "User"}
+            Welcome Back, {username || "User"}
           </Typography>
         </CardContent>
       </Card>

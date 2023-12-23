@@ -171,9 +171,9 @@ export default function EditProduct({ product, categories }: { product: ProductT
 
           />
           {file && file instanceof File ?
-            <Image src={URL.createObjectURL(file)} alt="" height="100" width="100" /> :
+            <Image src={URL.createObjectURL(file)} alt="" height={100} width={100} /> :
             product?.img ?
-              <Image src={product?.img} alt="" height="100" width="100" /> : ''
+              <Image src={product?.img} alt="" height={100} width={100} /> : ''
           }
         </div>
         <div className="mb-2">

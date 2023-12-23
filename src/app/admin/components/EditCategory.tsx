@@ -112,9 +112,9 @@ export default function EditCategory({ category }: { category: CategoryType }) {
 
           />
           {file && file instanceof File ?
-            <Image src={URL.createObjectURL(file)} alt="" height="100" width="100" /> :
+            <Image src={URL.createObjectURL(file)} alt="" height={100} width={100} /> :
             category?.img ?
-              <Image src={category?.img} alt="" height="100" width="100" /> : ''
+              <Image src={category?.img} alt="" height={100} width={100} /> : ''
           }
         </div>
 

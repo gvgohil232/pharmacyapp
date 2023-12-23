@@ -127,7 +127,8 @@ export default function Header({ setIsLeftMenuOpen }) {
       <PsLink href="/orders">
         <MenuItem onClick={handleMenuClose}>Orders</MenuItem>
       </PsLink>
-      <PsLink href="javascript:void(0);">
+      {/* <PsLink href="javascript:void(0);"> */}
+      <PsLink href="#">
         <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
       </PsLink>
     </Menu>
