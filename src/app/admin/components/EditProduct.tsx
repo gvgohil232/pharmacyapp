@@ -131,7 +131,7 @@ export default function EditProduct({ product, categories }: { product: ProductT
             required
           />
         </div>
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="category"
@@ -146,7 +146,6 @@ export default function EditProduct({ product, categories }: { product: ProductT
             onChange={handleInputChange}
             required
           >
-            {/* Populate options dynamically from your category data */}
             <option value="" disabled>Select category</option>
             {categories?.map((category: CategoryType) => (
               <option key={category.id} value={category.id}>
@@ -154,8 +153,8 @@ export default function EditProduct({ product, categories }: { product: ProductT
               </option>
             ))}
           </select>
-        </div>
-        <div className="mb-2">
+        </div> */}
+        {/* <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="img"
@@ -175,7 +174,7 @@ export default function EditProduct({ product, categories }: { product: ProductT
             product?.img ?
               <Image src={product?.img} alt="" height={100} width={100} /> : ''
           }
-        </div>
+        </div> */}
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

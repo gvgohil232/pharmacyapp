@@ -47,7 +47,7 @@ export async function generateMetadata(
       // images: category?.img
       //   ? [category?.img, ...previousImages]
       //   : [...previousImages],
-      images: category?.img ? [category.img] : previousImages,
+      images: category?.img ? [process.env.APP_URL + category.img] : previousImages,
       url: `https://pharmacyapp.vercel.app/p/${cat}`
     },
   };

@@ -22,14 +22,17 @@ export async function POST(request: NextRequest) {
 
     const result = await prisma.category.create({
       data: {
-        name: name ? String(name) : '',
-        // img: imgfile,
+        name: name ? String(name) : "",
+        img: imgfile,
       },
     });
 
     return NextResponse.json({ result });
   } catch (error) {
     console.error("Error in POST:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error", e: error },
+      { status: 500 }
+    );
   }
 }

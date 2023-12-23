@@ -36,7 +36,7 @@ export async function generateMetadata(
         "Product Details Page",
       openGraph: {
         images: product?.img
-          ? [product?.img, ...previousImages]
+          ? [process.env.APP_URL + product?.img, ...previousImages]
           : [...previousImages],
       },
     };

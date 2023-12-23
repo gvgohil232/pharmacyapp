@@ -161,7 +161,7 @@ export default function AddProductForm({ categories }: { categories: CategoryTyp
                         ))}
                     </select>
                 </div>
-                <div className="mb-2">
+                {/* <div className="mb-2">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor="img"
@@ -176,8 +176,8 @@ export default function AddProductForm({ categories }: { categories: CategoryTyp
                         onChange={(e) => setFile(e.target.files?.[0])}
                         required
                     />
-                    <Image src={file ? URL.createObjectURL(file) : ""} alt="" height={100} width={100} />
-                </div>
+                    <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
+                </div> */}
                 <div className="mb-2">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"

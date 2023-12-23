@@ -130,7 +130,8 @@ export default function AddCategory() {
             }}
             required
           />
-          <Image src={file ? URL.createObjectURL(file) : ""} alt="" height={100} width={100} />
+
+          <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
         </div> */}
 
         <div className="flex items-center justify-between">
