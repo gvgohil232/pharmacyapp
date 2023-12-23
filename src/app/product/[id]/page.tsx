@@ -48,10 +48,8 @@ export async function generateMetadata(
       description: (product?.category
         ? product?.category + " - "
         : "") + "Product",
-      // siteName: `http://localhost:3000/product/${id}`,
       openGraph: {
-        images: product?.img ? [process.env.APP_URL + product.img, ...previousImages] : previousImages,
-        url: `${process.env.APP_URL}/product/${id}`,
+        images: product?.img ? [process.env.APP_URL + product?.img, ...previousImages] : [...previousImages],
       },
     };
   }
