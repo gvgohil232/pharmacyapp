@@ -8,31 +8,31 @@ export async function POST(request: NextRequest) {
     const res = await request.formData();
     const file: File | null = res.get("img") as unknown as File;
     let imgfile = "";
-    return NextResponse.json({ url:  process.cwd() });
-    // if (file) {
-    //   const bytes = await file.arrayBuffer();
-    //   const buffer = Buffer.from(bytes);
+   
+    if (file) {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
 
-    //   const path = join(process.cwd(), "/public/assets/uploads", file.name);
-    //   await writeFile(path, buffer);
-    //   imgfile = "/assets/uploads/" + file.name;
-    // }
+      const path = join(process.cwd(), "/public/assets/uploads", file.name);
+      await writeFile(path, buffer);
+      imgfile = "/assets/uploads/" + file.name;
+    }
 
-    // const name = res.get("name");
+    const name = res.get("name");
 
-    // const result = await prisma.category.create({
-    //   data: {
-    //     name: name ? String(name) : "",
-    //     img: imgfile,
-    //   },
-    // });
+    const result = await prisma.category.create({
+      data: {
+        name: name ? String(name) : "",
+        img: imgfile,
+      },
+    });
 
-    // return NextResponse.json({ result });
+    return NextResponse.json({ result });
   } catch (error) {
     console.error("Error in POST:", error);
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
+      { error: "Internal Server Error", 'e': error },
+      { status: 500 ,}
     );
   }
 }
