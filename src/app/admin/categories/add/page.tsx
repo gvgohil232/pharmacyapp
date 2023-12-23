@@ -113,7 +113,7 @@ export default function AddCategory() {
             required
           />
         </div>
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="img"
@@ -130,13 +130,9 @@ export default function AddCategory() {
             }}
             required
           />
-          {/* <img
-            id="preview"
-            alt="File Preview"
-            style={{ maxWidth: '100%', maxHeight: '100px', marginTop: '10px' }}
-          /> */}
+
           <Image src={file ? URL.createObjectURL(file) : ""} alt="" height="100" width="100" />
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-between">
           <button

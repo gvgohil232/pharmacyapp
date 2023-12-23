@@ -96,7 +96,7 @@ export default function EditCategory({ category }: { category: CategoryType }) {
             required
           />
         </div>
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="img"
@@ -116,7 +116,7 @@ export default function EditCategory({ category }: { category: CategoryType }) {
             category?.img ?
               <Image src={category?.img} alt="" height="100" width="100" /> : ''
           }
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-between">
           <button

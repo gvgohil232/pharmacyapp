@@ -155,7 +155,7 @@ export default function EditProduct({ product, categories }: { product: ProductT
             ))}
           </select>
         </div>
-        <div className="mb-2">
+        {/* <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="img"
@@ -175,7 +175,7 @@ export default function EditProduct({ product, categories }: { product: ProductT
             product?.img ?
               <Image src={product?.img} alt="" height="100" width="100" /> : ''
           }
-        </div>
+        </div> */}
         <div className="mb-2">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
