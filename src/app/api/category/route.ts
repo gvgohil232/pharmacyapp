@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const res = await request.formData();
     const file: File | null = res.get("img") as unknown as File;
     let imgfile = "";
-   
+
     if (file) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -31,8 +31,8 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error in POST:", error);
     return NextResponse.json(
-      { error: "Internal Server Error", 'e': error },
-      { status: 500 ,}
+      { error: "Internal Server Error", e: error },
+      { status: 500 }
     );
   }
 }

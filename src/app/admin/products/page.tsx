@@ -2,7 +2,7 @@ import React from "react";
 import { prisma } from "../../../../lib/prisma";
 import ProductList from "../components/ProductList";
 import Link from "next/link";
-export const revalidate = 60;
+export const revalidate = 5;
 async function getProducts() {
   const products = await prisma.product.findMany();
   return products;

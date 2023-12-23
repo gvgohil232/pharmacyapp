@@ -2,7 +2,7 @@ import React from "react";
 import { prisma } from "../../../../lib/prisma";
 import CategoryList from "../components/CategoryList";
 import Link from "next/link";
-export const revalidate = 60;
+export const revalidate = 5;
 async function getCategories() {
   const cat = await prisma.category.findMany();
   return cat;
