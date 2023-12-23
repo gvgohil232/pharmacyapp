@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const res = await request.formData();
     const file: File | null = res.get("img") as unknown as File;
     let imgfile = "";
-
+    console.log("Current working directory: ", process.cwd());
     if (file) {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     const result = await prisma.category.create({
       data: {
-        name: name ? String(name) : '',
+        name: name ? String(name) : "",
         img: imgfile,
       },
     });
@@ -30,6 +30,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ result });
   } catch (error) {
     console.error("Error in POST:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
